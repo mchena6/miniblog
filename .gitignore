@@ -1,0 +1,12 @@
+# .gitignore para proyectos Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.egg
+dist/
+build/
+.env
+.venv/
+venv/
+ENV/
+env/
