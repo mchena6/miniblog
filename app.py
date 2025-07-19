@@ -29,6 +29,8 @@ login_manager.login_view = 'login'
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
+from models import User, Post, Comment
+
 
 
 @app.route('/')
