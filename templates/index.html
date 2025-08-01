@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+<h1>Posts recientes</h1>
+{% for post in posts %}
+    <div class="card mb-3">
+        <div class="card-body">
+            <h4><a href="{{ url_for('post_detail', id=post.id) }}">{{ post.title }}</a></h4>
+            <p>{{ post.content[:100] }}...</p>
+            <p class="text-muted">Autor: <a href="{{ url_for('user_profile', id=post.author.id) }}">{{ post.author.username }}</a> - {{ post.created_at.strftime('%d/%m/%Y') }}</p>
+        </div>
+    </div>
+{% else %}
+    <p>No hay posts todavía.</p>
+{% endfor %}
+{% endblock %}
+

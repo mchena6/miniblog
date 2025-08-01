@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+
+{% block title %}Registrarse{% endblock %}
+
+{% block content %}
+<h2>Registrarse</h2>
+<form method="POST" action="{{ url_for('register') }}">
+    <div class="mb-3">
+        <input name="username" class="form-control" placeholder="Nombre de usuario" required>
+    </div>
+    <div class="mb-3">
+        <input name="email" class="form-control" type="email" placeholder="Email" required>
+    </div>
+    <div class="mb-3">
+        <input name="password" class="form-control" type="password" placeholder="Contraseña" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Crear cuenta</button>
+</form>
+{% endblock %}
