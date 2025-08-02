@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+
+{% block title %} CREAR POST {% endblock %}
+
+{% block content %} 
+<div class="row">
+        <div class="row text-center">
+            <h3>CREAR POST</h3>
+        </div>
+        <div class="row">
+            {% if current_user.is_authenticated %}
+                <div class="col">
+                    <form method="post" action="">
+                        <label for="title">Titulo</label>
+                        <input type="text" class="form-control" name="post_title">
+                        <label for="content">Escribe lo que quieres decir</label>
+                        <input type="text" class="form-control" name="post_content">
+
+                        <button class="btn btn-success mt-4" type="submit">
+                            PUBLICAR
+                        </button>
+                    </form>
+                </div>
+            {% else %}
+                <p><strong>Inicie sesion para agregar una crear un post</strong></p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+  
+{% endblock %}
