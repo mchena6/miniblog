@@ -94,7 +94,7 @@ def index():
        'index.html', posts=posts
     )
 
-'''
+
 # Crear un posteo
 @app.route('/post/new' , methods=['GET', 'POST'])
 @login_required
@@ -107,12 +107,12 @@ def new_post():
         db.session.commit()
         return redirect(url_for('index'))
     return render_template('post_form.html')
-'''
+
 
 
 # Ver un post especifico
 @app.route('/post/<int:id>')
-def post_detail():
+def post_detail(id):
     post = Post.query.get_or_404(id)
     return render_template(
         'post_detail.html', post=post
@@ -120,7 +120,7 @@ def post_detail():
 
 # Perfil de un usuario
 @app.route('/user/<int:id>')
-def user_profile():
+def user_profile(id):
     user = User.query.get_or_404(id)
     return render_template(
         'user_profile.html', user=user
@@ -140,7 +140,7 @@ def user_posts():
 def comment_create(post_id):
     if request.method == 'POST':
         content = request.form['comment_content']
-        comment = Comment(content=content, post_id=post_id, author=current_user)
+        comment = Comment(text=content, post_id=post_id, author=current_user)
     db.session.add(comment)
     db.session.commit()
     return redirect(url_for('post_detail', id=post_id))
