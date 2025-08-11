@@ -135,7 +135,7 @@ def user_posts():
         'user_posts.html', user=user, posts=posts
     )
 
-@app.route('/post/<int:post_id>/comment', methods=['GET', 'POST'])
+@app.route('/post/<int:post_id>/comment', methods=['GET','POST'])
 @login_required
 def comment_create(post_id):
     if request.method == 'POST':
@@ -143,4 +143,14 @@ def comment_create(post_id):
         comment = Comment(text=content, post_id=post_id, author=current_user)
     db.session.add(comment)
     db.session.commit()
+    return redirect(url_for('post_detail', id=post_id))
+
+@app.route('/comment/<int:id>', methods=['POST'])
+def comment_delete(id):
+    comment = Comment.query.get_or_404(id)
+
+    post_id = comment.post.id
+    if comment.author == current_user:
+        db.session.delete(comment)
+        db.session.commit()
     return redirect(url_for('post_detail', id=post_id))
