@@ -33,7 +33,12 @@
                                             {{ post.title }}
                                         </a>
                                         <br>
-                                        <small class="text-muted">Publicado el {{ post.created_at.strftime('%d/%m/%Y %H:%M') }}</small>
+                                        <small class="text-muted">
+                                            Publicado el {{ post.created_at.strftime('%d/%m/%Y %H:%M') }} 
+                                            <br>
+                                            Categoria: {{ post.categorie.name if post.categorie else 'Sin categoria' }}
+                                        </small>
+                                        
                                     </div>
                                 </li>
                             {% endfor %}

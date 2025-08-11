@@ -29,7 +29,7 @@ login_manager.login_view = 'login'
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-from models import User, Post, Comment
+from models import User, Post, Comment, Categorie
 
 # Relaciones de la base de datos:
 # user.posts -> post de un usuario
@@ -43,7 +43,10 @@ from models import User, Post, Comment
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-
+@app.context_processor
+def inject_categories():
+    categories = Categorie.query.all()
+    return dict(categories=categories)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -99,10 +102,12 @@ def index():
 @app.route('/post/new' , methods=['GET', 'POST'])
 @login_required
 def new_post():
+
     if request.method == 'POST':
         title = request.form['post_title']
         content = request.form['post_content']
-        post = Post(title=title, content=content, author=current_user)
+        categorie_id = request.form['post_categorie']
+        post = Post(title=title, content=content, author=current_user, categorie_id=categorie_id)
         db.session.add(post)
         db.session.commit()
         return redirect(url_for('index'))

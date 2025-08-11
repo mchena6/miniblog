@@ -28,15 +28,18 @@ class User(db.Model, UserMixin):
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False, unique=True)
-    content = db.Column(db.String(300), nullable=False, unique=True)
+    content = db.Column(db.String(300), nullable=False)
     created_at = db.Column(db.TIMESTAMP, nullable=False)
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    categorie_id = db.Column(db.Integer, db.ForeignKey('categorie.id'), nullable=True)
+
     comments = db.relationship(
         'Comment',
         backref = 'post',
         lazy = True
     )
+
 
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -47,4 +50,12 @@ class Comment(db.Model):
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
 
 
-    
+class Categorie(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable = False, unique = True)
+
+    posts = db.relationship(
+        'Post',
+        backref = 'categorie',
+        lazy = True
+    )

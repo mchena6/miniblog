@@ -17,8 +17,9 @@
     <div class="card mb-3">
         <div class="card-body">
             <h4><a href="{{ url_for('post_detail', id=post.id) }}">{{ post.title }}</a></h4>
-            <p>{{ post.content[:100] }}...</p>
-            <p class="text-muted">Autor: <a href="{{ url_for('user_profile', id=post.author.id) }}">{{ post.author.username }}</a> - {{ post.created_at.strftime('%d/%m/%Y') }}</p>
+            <p class="text-muted"><a href="{{ url_for('user_profile', id=post.author.id) }}">{{ post.author.username }}</a> - {{ post.created_at.strftime('%d/%m/%Y') }}</p>
+            <p>{{ post.content }}</p>
+            <p><small class="text-muted">Categoría: {{ post.categorie.name if post.categorie else 'Sin categoria' }}</small></p>
         </div>
     </div>
 {% else %}

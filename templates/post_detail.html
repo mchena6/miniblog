@@ -12,10 +12,12 @@
                 </div>
                 <div class="card-body">
                     <p class="text-muted mb-2">
-                        Publicado por <strong><p class="text-muted">Autor: <a href="{{ url_for( 'user_profile' , id=post.author.id ) }}">{{ post.author.username }}</a></strong> el {{ post.created_at.strftime('%d/%m/%Y %H:%M') }}
+                        Publicado por <strong><p class="text-muted"><a href="{{ url_for( 'user_profile' , id=post.author.id ) }}">{{ post.author.username }}</a></strong> el {{ post.created_at.strftime('%d/%m/%Y %H:%M') }}
                     </p>
                     <hr>
                     <p>{{ post.content }}</p>
+                    <p><small class="text-muted">Categoria: {{ post.categorie.name if post.categorie else 'Sin categoria' }}</small></p>
+
                 </div>
             </div>
 
