@@ -135,6 +135,7 @@ def user_posts():
         'user_posts.html', user=user, posts=posts
     )
 
+#Crear comentario
 @app.route('/post/<int:post_id>/comment', methods=['GET','POST'])
 @login_required
 def comment_create(post_id):
@@ -145,6 +146,7 @@ def comment_create(post_id):
     db.session.commit()
     return redirect(url_for('post_detail', id=post_id))
 
+#Eliminar comentario
 @app.route('/comment/<int:id>', methods=['POST'])
 def comment_delete(id):
     comment = Comment.query.get_or_404(id)
@@ -154,3 +156,21 @@ def comment_delete(id):
         db.session.delete(comment)
         db.session.commit()
     return redirect(url_for('post_detail', id=post_id))
+
+#Editar comentario
+@app.route('/comment/<int:id>/edit', methods=['GET', 'POST'])
+@login_required
+def comment_edit(id):
+    comment = Comment.query.get_or_404(id)
+
+    if comment.author != current_user:
+        # Opcional: flash("No tienes permiso para editar este comentario")
+        return redirect(url_for('post_detail', id=comment.post_id))
+
+    if request.method == 'POST':
+        new_text = request.form['comment_content']
+        comment.text = new_text
+        db.session.commit()
+        return redirect(url_for('post_detail', id=comment.post_id))
+
+    return render_template('comment_edit.html', comment=comment)
