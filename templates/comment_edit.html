@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Editar comentario</h2>
+    <form method="POST" action="{{ url_for('comment_edit', id=comment.id) }}">
+        <div class="mb-3">
+            <label for="comment_content" class="form-label">Comentario</label>
+            <textarea name="comment_content" id="comment_content" rows="4" class="form-control" required>{{ comment.text }}</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+        <a href="{{ url_for('post_detail', id=comment.post_id) }}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}
