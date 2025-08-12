@@ -1,7 +1,9 @@
 from app import db
 
+# Importar clase de Usuario
 from flask_login import UserMixin
 
+# Usuario (id, username, email, password_hash, is_active)
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), nullable=False, unique=True)
@@ -20,11 +22,12 @@ class User(db.Model, UserMixin):
         backref = 'author',
         lazy = True
     )
-
+    
     def __str__(self):
         return self.username
 
 
+# Post (id, title, content, created_at, user_id, categorie_id)
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False, unique=True)
@@ -41,6 +44,7 @@ class Post(db.Model):
     )
 
 
+# Comentario (id, text, created_at, user_id, post_id)
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.String(200))
@@ -50,6 +54,7 @@ class Comment(db.Model):
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
 
 
+# Categoria (id, name)
 class Categorie(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable = False, unique = True)
