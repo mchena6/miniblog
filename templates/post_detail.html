@@ -10,6 +10,12 @@
                 <div class="card-header bg-dark text-white">
                     <h2 class="h4 mb-0">{{ post.title }}</h2>
                 </div>
+                {% if current_user.is_authenticated and post.author.id == current_user.id %}
+                    <form action="{{ url_for('delete_post', id=post.id) }}" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar este post?');">
+                        <button type="submit" class="btn btn-danger">Eliminar Post</button>
+                    </form>
+                {% endif %}
+
                 <div class="card-body">
                     <p class="text-muted mb-2">
                         Publicado por <strong><p class="text-muted"><a href="{{ url_for( 'user_profile' , id=post.author.id ) }}">{{ post.author.username }}</a></strong> el {{ post.created_at.strftime('%d/%m/%Y %H:%M') }}
